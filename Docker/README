@@ -1,0 +1,45 @@
+####################################
+###   Author : Park Ju Yeong     ###
+###   E-mail : worean@naver.com  ###
+####################################
+
+Step 1: clone Repository from id200ea/RelayComics in your directory
+	cmd = git clone https://github.com/id200ea/RelayComics.git
+
+Step 2: go to cloned directory(RelayComics)
+	cmd = cd RelayComics
+
+Step 3: go to Dockerfile Directory
+	cmd = cd Dockerfile
+
+Step 4: build Dockerfile. if you want build image name use the --tag option
+	// if you want image name
+	cmd = sudo docker build --tag [image name] .
+	// if you not want image name
+	cmd = sudo docker build .	
+Step 5: check your docker images. you can check image named your --tag option 
+	cmd = sudo docker images
+
+Step 6: Create Container from build image
+	Option : 
+		-v : link your directory to Container's directory
+		--name : choose your Container name
+		-p : set PortForwade [out]:[in]
+		-i -t : you can use Bash-shell
+	//you must this cmd at RelayComics/Dockerfile/ directory
+	cmd = sudo docker run  -i -t --name [container name] -p 3000:3000 -v [absolute address of this directory]:/root/Comics [image name] 
+
+
+Step 7: start and attach to Container, if you not in Container
+	cmd = sudo docker start [container name] \ sudo docker attach [container name]
+
+Step 8: You must link /dev/null to /dev/raw1394
+	cmd = ln /dev/null /dev/raw1394
+
+Step 9: You can find linked directory [/root/Comics]
+	cmd = cd /root/Comics
+
+Step 9: Create server
+	cmd = node bin/www
+	 
+

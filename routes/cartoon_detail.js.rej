@@ -1,0 +1,9 @@
+diff a/routes/cartoon_detail.js b/routes/cartoon_detail.js	(rejected hunks)
+@@ -10,6 +10,7 @@
+   password : '111111',
+   database : 'relay_cartoon'
+ });
++//conn.connect();
+ 
+ router.get('/', function(req, res, next) {
+ 

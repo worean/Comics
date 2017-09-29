@@ -1,0 +1,26 @@
+{
+  "name": "nodetest",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-mysql-session": "^1.2.2",
+    "express-session": "^1.15.5",
+    "jade": "~1.11.0",
+    "morgan": "~1.8.1",
+    "mysql": "^2.13.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-naver": "^1.0.6",
+    "path": "^0.12.7",
+    "pbkdf2-password": "^1.2.1",
+    "python-shell": "^0.4.0",
+    "serve-favicon": "~2.4.2"
+  }
+}

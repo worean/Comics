@@ -1,0 +1,150 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 100%;
+}
+img{max-width:100%;}
+/* Login */
+.login {
+  background-color: #243549
+}
+.login-body {
+	padding:150px 0px 50px 0px;
+}
+.login-body h1{
+	font-size:2em;
+	color:#fff;
+	font-weight:800;
+	text-transform:uppercase;
+	text-align:center;
+	margin-bottom:2em;
+}
+.auth-login{
+	width: 330px;
+	display: block;
+	margin: 0 auto;
+}
+
+/* Shared */
+.btn {
+  display: inline-block;
+  padding: 6px 0px;
+  margin-bottom: 0;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.8;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 0px;
+  border-radius: 4px;
+}
+.btn-block {
+  display: block;
+  width: 100%;
+}
+.btn-block + .btn-block {
+  margin-top: 15px;
+}
+.btn-social-icon {
+  margin-bottom: 4px
+}
+.btn:focus {
+  outline: none;
+}
+.btn:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+
+/* Facebook */
+.btn-facebook {
+  color: #fff;
+  background-color: #3b5998;
+  border-color: rgba(0,0,0,0.2)
+}
+.btn-facebook:hover,
+.btn-facebook:focus,
+.btn-facebook.focus {
+  color: #fff;
+  background-color: #2d4373;
+  border-color: rgba(0,0,0,0.2)
+}
+
+/* Naver */
+.btn-naver {
+  color: #fff;
+  background-color: #1FC800;
+  border-color: rgba(0,0,0,0.2)
+}
+.btn-naver:hover,
+.btn-naver:focus,
+.btn-naver.focus {
+  color: #fff;
+  background-color: #1CAA00;
+  border-color: rgba(0,0,0,0.2)
+}
+
+/*--meadia quiries start here--*/
+@media (max-width:1024px){
+.login-body {
+    padding: 80px 0px 40px 0px;
+}
+}
+
+@media (max-width:768px){
+body {
+    min-height: 929px;
+}
+}
+@media (max-width:768px){
+body {
+    min-height: auto;
+}
+}
+@media (max-width:600px){
+.auth-login {
+    width: 425px;
+}
+}
+@media (max-width:450px){
+.auth-login {
+    width: 360px;
+}
+.login-body h1 {
+    margin-bottom: 1em;
+    font-size: 1.7em;
+}
+.login-body {
+    padding: 100px 0px 45px 0px;
+}
+body {
+    min-height: 672px;
+}
+}
+@media (max-width:384px){
+.auth-login {
+    width: 340px;
+}
+body {
+    min-height: 600px;
+}
+}
+@media(max-width:320px){
+.auth-login {
+    width: 280px;
+}
+.login-body {
+    padding: 70px 0px 45px 0px;
+}
+body {
+    min-height: 540px;
+}
+}

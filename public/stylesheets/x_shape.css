@@ -1,0 +1,29 @@
+.x-shape{
+    position: absolute;
+    right: 25px;
+    top: 250px;
+    width: 32px;
+    height: 32px;
+}
+
+.x-shape:before,
+.x-shape:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 5px;
+    background-color: #505050
+}
+
+.x-shape:after {
+    transform: rotate(45deg);
+}
+.x-shape:before {
+    transform: rotate(-45deg);
+}
+
+.x-shape.is-on:before,
+.x-shape.is-on:after{
+    background-color: rgba(0,0,0, 1);
+}

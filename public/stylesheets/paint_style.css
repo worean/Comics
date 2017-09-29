@@ -1,0 +1,106 @@
+body{
+	background-color: rgb(106, 155, 181);
+	width: 900px;
+	margin: 0 auto;
+	user-select: none;  /* 드레그 금지 */
+}
+div{
+	float: left;
+}
+#centerBox{
+	width: 500px;
+	height: 500px;
+	margin: 5px;
+	box-shadow: 1px 1px 5px 1px black;
+}
+/*Canvas CSS*/
+.canvasBox{
+	position: absolute;
+	background-color: transparent;
+	border: 1px solid black;
+	width: 500px;
+	height: 500px;
+	z-index: -1;
+}
+/*DrawBox - Canvas*/
+#drawBox{
+	background-color: transparent;
+	border: 1px solid black;
+	z-index: 0;
+}
+/*ToolBox*/
+#leftBox{
+	padding: 5px;
+	background: gray;
+	border: 1px solid black;
+	width: 100px;
+	height: 500px;
+	margin: 5px;
+	box-shadow: 1px 1px 5px 1px black;
+}
+/*Tools*/
+.drawTool{
+	margin-bottom: 5px;
+	text-align: center;
+	border-radius: 100px;
+	background: white;
+	width: 100%;
+	height: auto;
+}
+#optionBox{
+	padding: 5px;
+	text-align: center;
+	overflow-y:scroll;
+	background: gray;
+	border: 1px solid black;
+	width: 200px;
+	height: 300px;
+	margin: 5px;
+	box-shadow: 1px 1px 5px 1px black;
+}
+#colorBox{
+	text-align: center;
+	border: 0;
+	margin-bottom: 5px;
+	width: 100%;
+	height: 30%;
+}
+#plusBox{
+	margin-bottom: 5px;
+	border-radius: 100px;
+	background: blue;
+	width: 20px;
+	height: 20px;
+}
+#mergeButton{
+	float: right;
+	margin-bottom: 5px;
+	border-radius: 100px;
+	background: red;
+	width: 10px;
+	height: 10px;
+}
+#clearButton{
+	float: right;
+	margin-bottom: 5px;
+	border-radius: 100px;
+	background: green;
+	width: 10px;
+	height: 10px;
+}
+#deleteButton{
+	float: right;
+	margin-bottom: 5px;
+	border-radius: 100px;
+	background: blue;
+	width: 10px;
+	height: 10px;
+}
+.layerBox{
+	text-align: center;
+	margin-bottom: 5px;
+	border-radius: 100px;
+	background: white;
+	width: 100%;
+	height: auto;
+}

@@ -1,0 +1,86 @@
+//
+   Created by bgh29 on 2017-07-24.
+
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet', type='text/css', href='../stylesheets/navbar.css')
+        script(src='http://code.jquery.com/jquery-latest.min.js', type='text/javascript')
+        script.
+          $( document ).ready(function() {
+          $('#cssmenu').prepend('<div id="menu-button">Menu</div>');
+          $('#cssmenu #menu-button').on('click', function(){
+          var menu = $(this).next('ul');
+          if (menu.hasClass('open')) {
+          menu.removeClass('open');
+          }
+          else {
+          menu.addClass('open');
+          }
+          });
+          });
+        title
+    body
+      #cssmenu
+        ul
+          li
+            a(href='/')
+              span Relay Comics
+          li.login
+            a(href='/auth/login')
+              span Login
+          li.last.logout
+            a(href='/auth/logout')
+              span Logout
+        script(src='../javascripts/image_slider.js', type='text/javascript')
+        script(src='../javascripts/CartoonModel.js', type='text/javascript')
+        link(rel='stylesheet', type='text/css', href='../stylesheets/image_slider.css')
+        script(type='text/javascript').
+            sliderOpt = {
+                imageWidth:500,
+                imageHeigth:350
+            };
+            cartoonlist = JSON.parse(!{JSON.stringify(cartoon)});
+            var tempStory =[];
+            var tempCut;
+            for(var i=0 ; i<cartoonlist.length ; i++){
+                tempStory[i]=[];
+                for(tempCut = cartoonlist[i].root.child[0]; tempCut.child.length>0 ; tempCut = tempCut.child[0])
+                    tempStory[i].push(tempCut);
+
+            }
+
+            for(var i=0 ; i<cartoonlist.length;  i++){
+                var cartoonDiv = document.createElement("div");
+                cartoonDiv.id = "Cartoon_"+i.toString();
+                var title  = document.createElement("span");
+                title.id = "cartoonlist";
+                cartoonDiv.appendChild(title);
+                console.log(cartoonDiv);
+                var titleFont = document.createElement("font");
+                titleFont.size=8;
+                title.appendChild(titleFont);
+                var link = document.createElement("a");
+                link.href= "detail?title="+cartoonlist[i].title+"&rootCutNum="+cartoonlist[i].root.num.toString();
+                link.style.textDecoration="none";
+                link.innerHTML = cartoonlist[i].title;
+                titleFont.appendChild(link);
+                var tag  = document.createElement("span");
+                tag.id = "tag";
+                cartoonDiv.appendChild(tag);
+                var tagFont = document.createElement("font");
+                tagFont.size=5;
+                tag.appendChild(tagFont);
+                tagFont.innerHTML = "#tag1 #tag2 #tag3";
+                cartoonDiv.appendChild(new ImageSlider(i, sliderOpt).create(tempStory[i]));
+                document.body.appendChild(cartoonDiv);
+            }
+            var index = 5;
+            window.onscroll = function (ev) {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    create_slider("Title"+index.toString(), index++);
+                }
+            };

@@ -1,0 +1,90 @@
+.floating-btn {
+    background: #181717;
+}
+.floating-container {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+    padding: 2.6em;
+//overflow: hidden;
+//background: white;
+}
+.navigation {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+//background: rgba(67, 163, 141, .1);
+}
+.floating-btn ~ .navigation {
+    display: block;
+    opacity: 1;
+    z-index: 50;
+}
+.floating-btn.is--off ~ .navigation {
+    display: none;
+    opacity: 0;
+}
+.menu {
+    padding: 0;
+    text-align: center;
+}
+.menu__item {
+    color: #fff;
+    font-size: 3.5em;
+}
+.menu__item A {
+    display: block;
+    color: inherit;
+}
+.menu__item:hover {
+    box-shadow: 0 2px 3px rgba(37, 144, 119, .8) inset, 0 -2px 3px rgba(37, 144, 119, .8) inset;
+}
+.menu__item:hover A {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+}
+.floating-btn {
+    position: fixed;
+    right: 2em;
+    bottom: 2em;
+    padding: 3.2em 2em;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 60;
+    outline: none;
+}
+.floating-btn.is--off .menu-icon {
+    background: #000;
+}
+.menu-icon {
+    display: block;
+    width: 3em;
+    height: 0em;
+    background: transparent;
+}
+.menu-icon:before,
+.menu-icon:after {
+    content: "";
+    position: absolute;
+    left: 2em;
+    display: block;
+    width: 3em;
+    height: .3em;
+    background: #fff;
+    transition: transform .2s;
+}
+.floating-btn.is--off .menu-icon:before,
+.floating-btn.is--off .menu-icon:after {
+    transform: rotate(0);
+    background: inherit;
+}
+.floating-btn.is--off .menu-icon:before {
+    top: 3.0em;
+}
+.floating-btn.is--off .menu-icon:after {
+    bottom: 3.0em;
+    transform: rotate(90deg);
+}
+.is--off {
+    background: rgb(78, 198, 170);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+}

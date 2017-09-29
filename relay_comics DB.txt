@@ -1,0 +1,128 @@
+CREATE DATABASE relay_comics DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+CREATE TABLE Users 
+(
+	id	 INT NOT NULL AUTO_INCREMENT,
+	authId	 VARCHAR(50)  NOT NULL,
+	displayName	 VARCHAR(50)  NOT NULL,
+	email	 VARCHAR(50) NOT NULL,
+	PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE Cartoon
+(
+	cartoon_num	 BIGINT UNSIGNED  AUTO_INCREMENT  NOT NULL,
+	cartoon_title	 TEXT  NOT NULL,
+	cartoon_like	 BIGINT UNSIGNED  DEFAULT '0'  NOT NULL,
+	cartoon_tag1	 VARCHAR(10),
+	cartoon_tag2	 VARCHAR(10),
+	cartoon_tag3	 VARCHAR(10),
+	PRIMARY KEY (cartoon_num)
+) ENGINE=InnoDB;
+
+CREATE TABLE Cut
+(
+ 	cut_num	 BIGINT UNSIGNED  AUTO_INCREMENT  NOT NULL,
+	cut_author	 VARCHAR(30)  NOT NULL,
+	cut_story	 TEXT,
+	cut_date	 DATETIME  NOT NULL,
+	cut_src	 VARCHAR(50) NOT NULL,
+	cut_like	 BIGINT UNSIGNED  DEFAULT '0'  NOT NULL,
+	PRIMARY KEY (cut_num)
+) ENGINE=InnoDB;
+
+CREATE TABLE Cartoon_first_cut
+(
+ 	cartoon_num	 BIGINT UNSIGNED  NOT NULL,
+	first_cut	 BIGINT UNSIGNED,
+	PRIMARY KEY (cartoon_num),
+	FOREIGN KEY (cartoon_num) REFERENCES Cartoon (cartoon_num),
+	FOREIGN KEY (first_cut) REFERENCES Cut (cut_num)
+) ENGINE=InnoDB;
+
+CREATE TABLE TreePaths
+(
+	ancestor	 BIGINT UNSIGNED  NOT NULL,
+	descendant	 BIGINT UNSIGNED  NOT NULL,
+	PRIMARY KEY (ancestor, descendant),
+	FOREIGN KEY (ancestor) REFERENCES Cut(cut_num),
+	FOREIGN KEY (descendant) REFERENCES Cut(cut_num)
+) ENGINE=InnoDB;
+
+CREATE TABLE Cartoon_like_log
+(
+ 	cartoon_num	 BIGINT UNSIGNED  NOT NULL,
+	user_id	 VARCHAR(30)  NOT NULL,
+	cartoon_like_date	 DATETIME  NOT NULL,
+	PRIMARY KEY (cartoon_num, user_id),
+	FOREIGN KEY (cartoon_num) REFERENCES Cartoon (cartoon_num)
+) ENGINE=InnoDB;
+
+CREATE TABLE Cut_like_log
+(
+ 	cut_num	 BIGINT UNSIGNED  NOT NULL,
+	user_id	 VARCHAR(30)  NOT NULL,
+	cut_like_date	 DATETIME  NOT NULL,
+	PRIMARY KEY (cut_num, user_id),
+	FOREIGN KEY (cut_num) REFERENCES Cut (cut_num)
+) ENGINE=InnoDB;
+
+=======================================================================
+
+//Users
+
+INSERT INTO Users VALUES (100000, 'anyone', 'anyone', 'relaycomics@gmail.com');
+INSERT INTO Users VALUES (100001, 'kke', 'kke', 'kke@gmail.com');
+INSERT INTO Users VALUES (100002, 'jje', 'jje', 'jje@gmail.com');
+INSERT INTO Users VALUES (100003, 'bgh', 'bgh', 'bgh@gmail.com');
+INSERT INTO Users VALUES (100004, 'pjy', 'pjy', 'pjy@gmail.com');
+
+//Cartoon_list
+
+INSERT INTO Cartoon_list (cartoon_title, cartoon_tag1, cartoon_tag2, cartoon_tag3) VALUES ('1st cartoon', '#romance', '#fantasy' ,'#action');
+INSERT INTO Cartoon_list (cartoon_title, cartoon_tag1, cartoon_tag2, cartoon_tag3) VALUES ('2nd cartoon', '#drama', '#daily' ,'#gag');
+
+//Cut(cut_num)
+		title1(1)
+		   │
+		  １(3)
+	     ┌──┴──┐
+	    ２(4)      ８(10)
+	 ┌─┴─┐	 │
+        ３(5)   ４(6)  ９(11)
+	 │
+	５(7)
+     ┌─┴─┐
+    ６(8)   ７(9)
+insert into Cut (cartoon_num, cut_author, cut_story, cut_date, cut_src) values (1,"kke","1st cartoon title cut", now(), "/img/title1.jpg");
+insert into Cut (cartoon_num, cut_author, cut_story, cut_date, cut_src) values (2,"kke","2nd cartoon title cut", now(), "/img/title2.jpg");
+
+//Cartoon_first_cut
+
+insert into Cartoon_first_cut values (1, 1);
+insert into Cartoon_first_cut values (2, 2);
+
+//Cut (자동번호생성이라서 cut_num는 3~11로 들어갈듯)
+
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","1st cartoon 1st cut", now(), "../images/a.png");
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","1st cartoon 2nd cut", now(), "../images/aa.png");
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","1st cartoon 3rd", now(), "../images/aaa.png");
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","1st cartoon 4th", now(), "../images/aab.png");
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","1st cartoon 5th", now(), "../images/aaaa.png");
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","1st cartoon 6th", now(), "../images/aaaaa.png");
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","1st cartoon 7th", now(), "../images/aaaab.png");
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","1st cartoon 8th", now(), "../images/ab.png");
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","1st cartoon 9th", now(), "../images/aba.png");
+insert into Cut (cut_author, cut_story, cut_date, cut_src) values ("kke","2nd cartoon 1st cut", now(), "../images/a.png");
+
+//Treepaths
+insert into Treepaths values (1,3);
+insert into Treepaths values (3,4);
+insert into Treepaths values (3,10);
+insert into Treepaths values (4,5);
+insert into Treepaths values (4,6);
+insert into Treepaths values (5,7);
+insert into Treepaths values (7,8);
+insert into Treepaths values (7,9);
+insert into Treepaths values (10,11);
+insert into Treepaths values (2,12);

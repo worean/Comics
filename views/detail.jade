@@ -1,0 +1,184 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet', type='text/css', href='../stylesheets/navbar.css')
+        script(src='http://code.jquery.com/jquery-latest.min.js', type='text/javascript')
+        script.
+          $( document ).ready(function() {
+          $('#cssmenu').prepend('<div id="menu-button">Menu</div>');
+          $('#cssmenu #menu-button').on('click', function(){
+          var menu = $(this).next('ul');
+          if (menu.hasClass('open')) {
+          menu.removeClass('open');
+          }
+          else {
+          menu.addClass('open');
+          }
+          });
+          });
+        title
+    body
+      #cssmenu
+        ul
+          li
+            a(href='/')
+              span Relay Comics
+          li.login
+            a(href='/auth/login')
+              span Login
+          li.last.logout
+            a(href='/auth/logout')
+              span Logout
+        // #region Jssor Slider Begin
+        // Generator: Jssor Slider Maker
+        // Source: https://www.jssor.com
+        script(src='../javascripts/image_slider.js', type='text/javascript')
+        script(src='../javascripts/CartoonModel.js', type='text/javascript')
+        script(src='../javascripts/TreeModel.js', type='text/javascript')
+        link(rel='stylesheet', type='text/css', href='../stylesheets/image_slider.css')
+        link(rel='stylesheet', type='text/css', href='../stylesheets/floating_button.css')
+        link(rel='stylesheet', type='text/css', href='../stylesheets/heart_shape.css')
+        link(rel='stylesheet', type='text/css', href='../stylesheets/x_shape.css')
+        style.
+            #info {
+                background:#FFF;
+                padding-top:100px;
+                padding-bottom: 50px;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+        button#sub-scrn-btn.floating-btn.is--off
+            span.menu-icon
+        div#info
+            p
+                strong
+                    font(size='7') This is Title
+            p
+                font(size='5') #tag1 #tag2 #tag3
+        script(type='text/javascript').
+            sliderOpt = {
+                imageWidth: 500,
+                imageHeigth: 350,
+                gravity:"center"
+            };
+            story = [];
+            slider = [];
+            sliderData = [];
+            loadCnt = 2;
+            var test;
+            var i;
+
+            test = JSON.parse(!{JSON.stringify(cartoon)});
+
+            document.getElementById("info").children[0].children[0].children[0].innerHTML = test.title;
+
+            var temp = test.root;
+            for (index = 0; temp.child.length > 0 && index<loadCnt+1 ; temp = temp.child[0], index++) {
+                story.push(temp.child);
+                sliderData[index] = new ImageSlider(index, sliderOpt);
+                slider[index] = sliderData[index].create(temp.child);
+                document.body.appendChild(slider[index]);
+                sliderData[index].prev.addEventListener("click", function (event) {
+                    storyChange(event)
+                }, false);
+                sliderData[index].next.addEventListener("click", function (event) {
+                    storyChange(event)
+                }, false);
+            }
+            console.log(story);
+            pre=0;
+            cur=0;
+            slider[0].style.border = "3px solid green"
+            window.onscroll = function (ev) {
+                var top  = (window.pageYOffset || document.documentElement.scrollTop)- document.getElementById("info").clientHeight;
+                var imageHeight = 380;
+                cur = (parseInt((top+window.innerHeight/2)/imageHeight)).toString();
+                if(pre!=cur){
+                    slider[pre].style.border="none";
+                    slider[cur].style.border = "3px solid green"
+                    pre = cur;
+                }
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    console.log("scroll end");
+                    temp = story[index-1][0];
+                    for (preindex = index; temp.child.length > 0 && index < preindex+loadCnt; temp = temp.child[0], index++) {
+                        story.push(temp.child);
+                        sliderData[index] = new ImageSlider(index, sliderOpt);
+                        slider[index] = sliderData[index].create(temp.child);
+                        document.body.appendChild(slider[index]);
+                        sliderData[index].prev.addEventListener("click", function (event) {
+                            storyChange(event)
+                        }, false);
+                        sliderData[index].next.addEventListener("click", function (event) {
+                            storyChange(event)
+                        }, false);
+                    }
+                }
+            };
+            (function (){
+                "use strict";
+                var floatingBtn = document.getElementById("sub-scrn-btn");
+                floatingBtn.addEventListener("click", function (e) {
+                    var btn = e.currentTarget;
+                    btn.classList.toggle("is--off")
+                    if(cur==0)
+                        window.location = "http://localhost:3000/canvas?parentNum=" + test.root.num.toString();
+                    else
+                        window.location = "http://localhost:3000/canvas?parentNum="+story[cur-1][sliderData[cur-1].currentImage].num.toString();
+                 /*   var xmlhttp = new XMLHttpRequest();
+                    var data = new FormData();
+                    data.append('test', 12);
+                    xmlhttp.open('GET', '/canvas', true);
+                    xmlhttp.send(data);*/
+                });
+            })();
+            window.onload = function () {
+            }
+            window.onresize = function () {
+                slider.forEach(function (v, i) {
+                    v.changeWindowSize();
+                });
+            }
+            function storyChange(e) {
+                var info = e.target.id.split("_");
+                var eventType = info[0];
+                var sliderNum = parseInt(info[1]);
+                var eventSlider = sliderData[sliderNum];
+                while (sliderNum + 1 < slider.length) {
+                    sliderData.pop();
+                    story.pop();
+                    slider.pop().remove();
+                };
+                var temp
+                if(eventType=="prev"){
+                    if(sliderData[sliderNum].currentImage==0)
+                        temp = story[sliderNum][eventSlider.li_items.length-1];
+                    else
+                        temp = story[sliderNum][eventSlider.currentImage - 1];
+                } else if(eventType=="next"){
+                    if (sliderData[sliderNum].currentImage == eventSlider.li_items.length-1)
+                        temp = story[sliderNum][0];
+                    else
+                        temp = story[sliderNum][eventSlider.currentImage + 1];
+                }
+                for(index=sliderNum+1 ; temp.child.length>0 && index<sliderNum+1+loadCnt; temp = temp.child[0], index++)
+                {
+                    story.push(temp.child);
+                    sliderData[index] = new ImageSlider(index, sliderOpt);
+                    slider[index] = sliderData[index].create(temp.child);
+                    document.body.appendChild(slider[index]);
+                    sliderData[index].prev.addEventListener("click", function (event) {
+                        storyChange(event)
+                    }, false);
+                    sliderData[index].next.addEventListener("click", function (event) {
+                        storyChange(event)
+                    }, false);
+                }
+                console.log(index);
+            }
+
+// #endregion Jssor Slider End
